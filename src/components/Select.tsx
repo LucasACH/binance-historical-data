@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
-import { classNames } from '../utils/classNames';
+import { classNames } from '../utils';
 
 interface SelectProps {
   value: string;
