@@ -6,6 +6,12 @@ export const coinFuturesApiBaseUrl = 'https://dapi.binance.com/dapi/v1/';
 
 export const markets = ['Spot', 'USDⓈ-M Futures', 'COIN-M  Futures'];
 
+export const marketBaseUrl = {
+  Spot: spotApiBaseUrl,
+  'USDⓈ-M Futures': usdFuturesApiBaseUrl,
+  'COIN-M  Futures': coinFuturesApiBaseUrl,
+};
+
 export const contractTypes = ['PERPETUAL', 'CURRENT_QUARTER'];
 
 export const intervals = [
