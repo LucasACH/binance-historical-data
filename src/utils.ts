@@ -1,22 +1,24 @@
+import { headers } from './constants';
+import { FetchProps } from './interfaces/FetchProps';
+import { stringify } from 'query-string';
+
 export const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(' ');
 };
 
-export const generateQueryString = (
-  symbol: string,
-  market: string,
-  contractType: string,
-  interval: string,
-  startTime: number,
-  endTime: number
-) => {
-  const marketQueryString = {
-    Spot: `klines?symbol=${symbol}&interval=${interval}&startTime=${startTime}&endTime=${endTime}&limit=1000`,
-    'USDⓈ-M Futures': `klines?symbol=${symbol}&contractType=${contractType}&interval=${interval}&startTime=${startTime}&endTime=${endTime}&limit=1000`,
-    'COIN-M  Futures': `klines?symbol=${symbol}&contractType=${contractType}&interval=${interval}&startTime=${startTime}&endTime=${endTime}&limit=1000`,
+export const generateQueryString = (fetchProps: FetchProps) => {
+  const isSpotMarketSelected = fetchProps.market === 'Spot';
+  const queryData: { [key: string]: string | number } = {
+    symbol: fetchProps.symbol,
+    interval: fetchProps.interval,
+    startTime: fetchProps.startTime,
+    endTime: fetchProps.endTime,
   };
-  const queryString =
-    marketQueryString[market as keyof typeof marketQueryString];
+
+  if (!isSpotMarketSelected) {
+    queryData.contractType = fetchProps.contractType;
+  }
+  const queryString = 'klines?' + stringify(queryData);
   return queryString;
 };
 
@@ -29,18 +31,10 @@ const encodeContent = (headers: string[], data: string[][]) => {
   );
 };
 
-export const createCsvFile = (
-  headers: string[],
-  data: string[][],
-  symbol: string,
-  market: string,
-  interval: string,
-  startTime: number,
-  endTime: number
-) => {
+export const createCsvFile = (fetchProps: FetchProps, data: string[][]) => {
   const csvContent = encodeContent(headers, data);
   var encodedUri = encodeURI(csvContent);
-  const filename = `${symbol}_${market}_${interval}_${startTime}_${endTime}`;
+  const filename = `${fetchProps.symbol}_${fetchProps.market}_${fetchProps.interval}_${fetchProps.startTime}_${fetchProps.endTime}`;
   var link = document.createElement('a');
   link.setAttribute('href', encodedUri);
   link.setAttribute('download', filename);
@@ -69,3 +63,16 @@ export const contractTypeToTitleCase = (contractType: string) => {
   }
   return splitStr.join(' ');
 };
+
+export const contractTypeToQueryValue = (contractType: string) =>
+  contractType.replace(' ', '_').toUpperCase();
+
+export const calculateRequestLength = (fetchProps: FetchProps) =>
+  (fetchProps.endTime - fetchProps.startTime) /
+  intervalToMilliseconds(fetchProps.interval);
+
+export const generateMaxDate = (timeStamp: number) =>
+  new Date(timeStamp - 86400000).toISOString().split('T')[0];
+
+export const generateMinDate = (timeStamp: number) =>
+  new Date(timeStamp + 86400000).toISOString().split('T')[0];
