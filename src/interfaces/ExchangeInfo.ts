@@ -1,116 +1,63 @@
 export interface ExchangeInfo {
-  timezone: string;
-  serverTime: number;
-  rateLimits: RateLimit[];
   exchangeFilters: any[];
+  rateLimits: RateLimit[];
+  serverTime: number;
+  assets: Asset[];
   symbols: Symbol[];
+  timezone: string;
+}
+
+export interface Asset {
+  asset: string;
+  marginAvailable: boolean;
+  autoAssetExchange: number | null;
 }
 
 export interface RateLimit {
-  rateLimitType: string;
   interval: string;
   intervalNum: number;
   limit: number;
+  rateLimitType: string;
 }
 
 export interface Symbol {
   symbol: string;
-  status: Status;
+  pair: string;
+  contractType: string;
+  deliveryDate: number;
+  onboardDate: number;
+  status: string;
+  maintMarginPercent: string;
+  requiredMarginPercent: string;
   baseAsset: string;
+  quoteAsset: string;
+  marginAsset: string;
+  pricePrecision: number;
+  quantityPrecision: number;
   baseAssetPrecision: number;
-  quoteAsset: QuoteAsset;
   quotePrecision: number;
-  quoteAssetPrecision: number;
-  baseCommissionPrecision: number;
-  quoteCommissionPrecision: number;
-  orderTypes: OrderType[];
-  icebergAllowed: boolean;
-  ocoAllowed: boolean;
-  quoteOrderQtyMarketAllowed: boolean;
-  isSpotTradingAllowed: boolean;
-  isMarginTradingAllowed: boolean;
+  underlyingType: string;
+  underlyingSubType: string[];
+  settlePlan: number;
+  triggerProtect: string;
   filters: Filter[];
-  permissions: Permission[];
+  OrderType: string[];
+  timeInForce: string[];
+  liquidationFee: string;
+  marketTakeBound: string;
 }
 
 export interface Filter {
-  filterType: FilterType;
-  minPrice?: string;
+  filterType: string;
   maxPrice?: string;
+  minPrice?: string;
   tickSize?: string;
+  maxQty?: string;
+  minQty?: string;
+  stepSize?: string;
+  limit?: number;
+  notional?: string;
   multiplierUp?: string;
   multiplierDown?: string;
-  avgPriceMins?: number;
-  minQty?: string;
-  maxQty?: string;
-  stepSize?: string;
-  minNotional?: string;
-  applyToMarket?: boolean;
-  limit?: number;
-  maxNumOrders?: number;
-  maxNumAlgoOrders?: number;
-  maxPosition?: string;
-}
-
-export enum FilterType {
-  IcebergParts = 'ICEBERG_PARTS',
-  LotSize = 'LOT_SIZE',
-  MarketLotSize = 'MARKET_LOT_SIZE',
-  MaxNumAlgoOrders = 'MAX_NUM_ALGO_ORDERS',
-  MaxNumOrders = 'MAX_NUM_ORDERS',
-  MaxPosition = 'MAX_POSITION',
-  MinNotional = 'MIN_NOTIONAL',
-  PercentPrice = 'PERCENT_PRICE',
-  PriceFilter = 'PRICE_FILTER',
-}
-
-export enum OrderType {
-  Limit = 'LIMIT',
-  LimitMaker = 'LIMIT_MAKER',
-  Market = 'MARKET',
-  StopLossLimit = 'STOP_LOSS_LIMIT',
-  TakeProfitLimit = 'TAKE_PROFIT_LIMIT',
-}
-
-export enum Permission {
-  Leveraged = 'LEVERAGED',
-  Margin = 'MARGIN',
-  Spot = 'SPOT',
-}
-
-export enum QuoteAsset {
-  Aud = 'AUD',
-  Bidr = 'BIDR',
-  Bkrw = 'BKRW',
-  Bnb = 'BNB',
-  Brl = 'BRL',
-  Btc = 'BTC',
-  Busd = 'BUSD',
-  Bvnd = 'BVND',
-  Dai = 'DAI',
-  Doge = 'DOGE',
-  Eth = 'ETH',
-  Eur = 'EUR',
-  Gbp = 'GBP',
-  Gyen = 'GYEN',
-  Idrt = 'IDRT',
-  Ngn = 'NGN',
-  Pax = 'PAX',
-  Rub = 'RUB',
-  Trx = 'TRX',
-  Try = 'TRY',
-  Tusd = 'TUSD',
-  Uah = 'UAH',
-  Usdc = 'USDC',
-  Usdp = 'USDP',
-  Usds = 'USDS',
-  Usdt = 'USDT',
-  Vai = 'VAI',
-  Xrp = 'XRP',
-  Zar = 'ZAR',
-}
-
-export enum Status {
-  Break = 'BREAK',
-  Trading = 'TRADING',
+  multiplierDecimal?: number;
 }
