@@ -25,7 +25,7 @@ const useSymbols = (fetchProps: FetchProps) => {
         setFetchingSymbols(false);
       })
       .catch((error) => {
-        setErrorFetchingSymbols(error);
+        setErrorFetchingSymbols(error.message);
         setFetchingSymbols(false);
       });
   }, [fetchProps.apiBaseUrl, fetchProps.contractType]);
