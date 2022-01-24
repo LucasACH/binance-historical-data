@@ -21,6 +21,7 @@ const App: React.FC = () => {
     !fetchingSymbols &&
       errorFetchingSymbols === null &&
       setFetchProps({ type: 'symbol', payload: symbols[0] });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchingSymbols, errorFetchingSymbols, symbols]);
 
   useEffect(() => {
@@ -36,6 +37,7 @@ const App: React.FC = () => {
           fetchProps.market as keyof typeof constants.marketBaseUrl
         ],
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchProps.market]);
 
   const handleButtonClick = () => {
@@ -160,6 +162,7 @@ const App: React.FC = () => {
         <a
           href='https://github.com/LucasACH/binance-historical-data'
           target='_blank'
+          rel='noreferrer'
           className='font-bold underline'
         >
           Lucas Achaval
