@@ -4,10 +4,10 @@
     <img src="https://avatars3.githubusercontent.com/u/73149577?s=460&u=1baa1defb9904624d7aad76ec37dc76d2b230c0a&v=4" alt="Logo" width="100" height="100">
   </a>
 
-  <h3 align="center">Raspberry Pi</h3>
+  <h3 align="center">Binance Historical Data</h3>
 
   <p align="center">
-    Raspberry Pi home media server.
+    Binance Historical Data to CSV.
     <br />
     <a href="https://github.com/LucasACH/binance-historical-data"><strong>Explore the docs »</strong></a>
   </p>
@@ -16,7 +16,7 @@
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # DEMO
-https://binance-historical-data.vercel.app/
+https://binance-historical-data.lucasachaval.com
 
 # Getting Started with Create React App
 
